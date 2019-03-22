@@ -1,0 +1,23 @@
+server:
+#  设置端口 默认是8080
+  port: 8080
+#  为服务指定一个上下文 默认没有上下文路径
+  context-path: /
+
+#配置数据库四要素 键不可改变
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/test
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+#   指定一个数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+
+#  如果用的是hibernate 配置show-sql登录 true就可以打印出日志文件
+  jpa.show-sql: true
+
+#如果要用xml的方式来写sql 就需要配置
+mybatis:
+  mapper-locations: classpath:**/*Mapper.xml
+

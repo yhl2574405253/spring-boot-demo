@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.et.demo02.mapper.UserInfoMapper" >
+    <resultMap id="userInfoMap" type="cn.et.demo02.model.UserInfo">
+        <result column="uid" property="id"></result>
+        <result column="uname" property="name"></result>
+        <result column="usex" property="sex"></result>
+        <result column="uage" property="age"></result>
+    </resultMap>
+
+
+    <select id="getUserInfoQuery" resultMap="userInfoMap">
+      select * from userInfo
+      <where>
+          <if test="userInfo.name != null and userInfo.name !=''">
+            and uname like '%${userInfo.name}%'
+          </if>
+          <if test="userInfo.age != null and userInfo.age !=''">
+            and uage = #{userInfo.age}
+          </if>
+          <if test="userInfo.sex != null and userInfo.sex != ''">
+            and usex = #{userInfo.sex}
+          </if>
+      </where>
+    </select>
+
+    <select id="getUserInfoOne" resultMap="userInfoMap">
+      select * from userInfo where uid=#{id}
+    </select>
+    
+    <update id="update">
+      update userInfo
+      <set>
+        <if test="userInfo.name and userInfo.name!=''">
+          uname=#{userInfo.name},
+        </if>
+        <if test="userInfo.age and userInfo.age!=''">
+            uage=#{userInfo.age},
+        </if>
+        <if test="userInfo.sex and userInfo.sex!=''">
+            usex=#{userInfo.sex}
+        </if>
+      </set>
+      where uid=#{userInfo.id}
+    </update>
+
+</mapper>
